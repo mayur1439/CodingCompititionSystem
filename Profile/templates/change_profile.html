@@ -1,0 +1,73 @@
+{% extends 'header.html'%}
+{% block content%}
+<html>
+<head>
+<style>
+	table{
+                font-family: arial,sans-serif;
+                border-collapse: collapse;
+                width: 100%;
+            }
+			 td{
+                padding: 20px;
+                border: 1px solid #dddddd;
+            }
+            body{
+            	background-color: grey;
+            }
+		input[type=text],input[type=password],input[type=date],input[type=email]{
+        width: 250px;
+        padding: 12px 20px;
+        margin: 8px 0;
+        transition: 0.25s;  
+		box-sizing: border-box;
+		border-radius:50px;
+		-webkit-transition: width 1s;
+		transition: width 1s;
+		border-color: green;
+		
+            }
+input[type=text]:focus,input[type=password]:focus,input[type=date]:focus,
+input[type=email]:focus{
+	border-color: #2ecc71;
+}
+input[type=submit] {
+  width: 200px;
+  padding: 12px 20px;
+  margin: 8px 0;
+   color: white;
+   background-color:SkyBlue;
+  font-size: 20px;
+  border-radius: 50px;
+  cursor: pointer;
+}
+input[type=submit]:hover {
+ opacity: 0.8;    
+ 	background: #2ecc71;
+	}
+			
+</style>
+</head>
+<body>
+<form action="/Profile/change_profile/" method="post">{% csrf_token%}
+ <table>
+	<tr><td>UserName:</td><td><input type="text" name="new_username" placeholder="Enter New UserName" required></td></tr>
+	<tr><td>Email:</td><td><input type="email" name="new_email" placeholder="Enter New Email" 
+		pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" required></td></tr>
+	<tr><td>Date of Birth:</td><td><input type="date" name="new_dob" placeholder="Enter New Date of Birth" required></td></tr>
+	<tr><td>Gender:</td><td><input type="radio" name="new_gender" value="Male" required>Male
+							<input type="radio" name="new_gender" value="Female" required>Female
+							<input type="radio" name="new_gender" value="Others" required>Others</td></tr>
+	<tr><td>Profession:</td><td><input type="radio" name="new_prof" value="student" required>Student
+								<input type="radio" name="new_prof" value="professional"required>Professional
+								<input type="radio" name="new_prof" value="others" required>Others<br/></td></tr>
+	<tr><td>University:</td><td><input type="text" name="new_uni" placeholder="Enter New University"required></td></tr>
+	<tr><td>contact:</td><td> <input type="text" name="new_contact" placeholder="Enter New contact Number" 
+		pattern="[6-9][0-9]{9}" required><br/></td></tr>
+	<tr><td>Moto:</td><td><input type="text" name="new_moto" placeholder=" Enter New Moto" required></td></tr>
+	<tr><td></td><td><input type="submit" id="new_submit" value="update"></td></tr>
+</table>
+</form>
+</body>
+</html>
+{% endblock%}

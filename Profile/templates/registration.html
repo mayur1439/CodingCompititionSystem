@@ -1,0 +1,118 @@
+<html>
+<head>
+<style>
+body{
+	 background-image:url(https://images.alphacoders.com/511/thumb-350-511052.jpg);
+}
+.container{
+	width:400px;
+    height:940px;
+    position: absolute;
+    top:90%;
+    left:50%;
+    transform: translate(-50%,-50%);
+    text-align:center;
+	 padding:50px;
+	 margin:8px 0;
+	 background-color:black;
+     border-radius:8px;	
+	 border:2px solid green;
+}
+input[type=text],input[type=password],input[type=date],input[type=email]{
+        width: 250px;
+        padding: 12px 20px;
+        margin: 8px 0;
+        transition: 0.25s;  
+		box-sizing: border-box;
+		border-radius:50px;
+		-webkit-transition: width 1s;
+		transition: width 1s;
+		
+            }
+input[type=text]:focus,input[type=password]:focus,input[type=date]:focus,
+input[type=email]:focus{
+		width: 320px;
+	border-color: #2ecc71;
+}
+
+div.static{
+  text-align: center;
+  font-size:17px;
+   position:static;
+   color:SkyBlue;
+}
+
+button{
+    background-color: Skyblue;
+    color: white;
+	width: 250px;
+    padding:14px 50px;
+    margin: 15px 0;
+    cursor: pointer;
+	border-radius:50px;
+	font-size:20px;
+    }
+ button:hover {
+opacity: 0.8;
+background-color: #2ecc71;
+          } 
+        </style>
+    </head>
+    <body>
+    <center><h1>Registration Form</h1></center>
+
+ <form action="/Profile/registration/" method = "post">{% csrf_token %}   
+     <div class="container">
+         <div class="static"><b>UserID</b></div>  
+		 <input type="text" name="userID" placeholder="Enter UserID" required>
+		 <div class="static"><b>UserName</b></div>
+			 <input type="text" name="uname" placeholder="Enter User Name" required>
+		 <div class="static"><b>Date of Birth</b></div>
+             <input type="date" name="dob" required>     
+         <div class="static"><b>Gender</b></div><br/>
+         <div class="static">
+				<input type="radio" name="gender" value="Male" required>Male
+                <input type="radio" name="gender" value="Female" required>Female
+                <input type="radio" name="gender" value= "other" required>Other</div><br><br>
+         <div class="static"><b>Profession</b></div><br/>
+         <div class="static">
+		 <input type="radio" name="prof" value="student" required>Student
+                <input type="radio" name="prof" value="professional"required>Professional
+                <input type="radio" name="prof" value="others" required>Others</div><br><br>
+         <div class="static"><b>University</b></div>
+                <input type="text" name="uni" placeholder="Enter University"required>
+         <div class="static"><b>Password</b></div>
+                <input type="password" name="pass" placeholder="Enter password" id="pass" required>
+         <div class="static"><b>ReEnter Password</b></div>
+                <input type="password" name="password" placeholder="Re-Enter password" id="repass" required><br/>
+         <div class="static"><b>Email</b></div>
+                <input type="email" name="email" placeholder="Enter Email" 
+                pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" required><br/>
+         <div class="static"><b>Contact</b></div>
+                <input type="text" name="contact" placeholder="Enter contact Number" pattern="[6-9][0-9]{9}" required><br/>
+         <div class="static"><b>Moto</b></div>
+                <input type="text" name="moto" placeholder=" Enter Moto"> 
+                <button type="submit" id="submit" onclick="return validate()">Login</button>
+		</div>
+        </form>
+		<script>
+function validate()
+{
+ 	var x,y,text;
+ 	x=document.getElementById("pass").value;
+ 	y=document.getElementById("repass").value;
+ 	if(x==y)
+ 	{
+	   return true;
+ 	}
+ 	else
+ 	{
+		alert("Password don't match!")
+		return false;
+	}
+}
+</script>
+{% block content %}
+{% endblock %}	
+</body>
+</html>  

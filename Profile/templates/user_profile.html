@@ -1,0 +1,75 @@
+{% extends 'header.html'%}
+{% block content%}
+<html>
+<head>
+<style>
+		.floatLeft { 
+		width: 69%; 
+		float: left; 
+		font-size:30px;
+		border: ridge;
+		height: 100%;
+		}
+        .floatRight {
+		width: 30%; 
+		float: right;
+		font-size:30px;
+		border: ridge;
+		height: 100%;
+		}
+            table{
+                font-family: arial,sans-serif;
+                border-collapse: collapse;
+                width: 100%;
+            }
+			
+            td{
+                padding: 20px;
+				  border: 1px solid #dddddd;
+            }
+			.left{
+			float:left;
+			}
+		.setcolor{
+			color:green;
+		}
+		body{
+			background-color: grey;
+		}
+</style>
+</head>
+<body>
+<center>
+<div class="setcolor">
+	{% if messages %}
+		{% for message in messages%}
+		<h1>{{ message}}</h1>
+		{% endfor%}
+	{% else %}
+</div>
+</center>
+
+<div class="floatRight">
+<center>
+	<br>
+    <b>Submissions</b><br>
+	<a href="/online_judge/user_submission/">click here</a><br><br><br>
+</center>
+</div>
+<div class="floatLeft">
+  <center><b>Profile</b><center><br>
+  <div class="left"><b>{{name}}</b></div>
+    <table>
+	<tr><td>UserName:</td><td>{{id}}</td></tr>
+	<tr><td>Email:</td><td>{{email}}</td></tr>
+	<tr><td>Date of Birth:</td><td>{{dob}}</td></tr>
+	<tr><td>Gender:</td><td>{{gender}}</td></tr>
+	<tr><td>Profession:</td><td>{{prof}}</td></tr>
+	<tr><td>University:</td><td>{{uni}}</td></tr>
+	<tr><td>contact:</td><td>{{contact}}</td></tr>
+	<tr><td>moto:</td><td>{{moto}}</td></tr>
+</div>
+	{% endif %}
+</body>
+</html>
+{% endblock %}
