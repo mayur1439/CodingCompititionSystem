@@ -1,0 +1,68 @@
+{% extends 'header.html' %}
+{% block content %}
+<html>
+<head>
+<style>
+	.setcolor{
+		color:skyblue;
+	}
+	body{
+		background-color: grey;
+	}
+	.tbox input[type="file"]{
+  width: 200px;
+  padding: 12px 20px;
+  margin: 8px 0;
+  transition: 0.25s;
+   border-radius:50px;
+     margin:8px 0;
+	 -webkit-transition: width 1s;
+		transition: width 1s;
+
+}
+.tbox input[type="file"]:focus
+{
+	border-color: #2ecc71;
+}
+button{
+	width: 200px;
+	padding: 12px 20px;
+	margin: 8px 0;
+    background-color: SkyBlue;
+    color: white;
+    cursor: pointer;
+	border-radius: 50px;
+	  font-size: 20px;
+}
+ button:hover {
+    opacity: 0.8;
+	background: #2ecc71;
+    }
+</style>
+</head>
+<body>
+<center>
+	<div class="setcolor">
+	{% if messages %}
+    	{% for message in messages %}
+    	{{message}}
+		{% endfor %}
+	{% endif %}
+	</div>
+<h2>Download input file here:</h2>
+<a href="\static\my_input\{{input}}" download> Input File</a></br></br>
+<form action="/online_judge/compare/" method="post" enctype="multipart/form-data">{% csrf_token %}
+    <h2>Upload your Code File Here</h2>
+    <div class="tbox">
+    	<input type="file" name="code_file" id="code_file"></br></br>
+    </div>
+    <h2>Upload Output File Here</h2>
+    <div class="tbox">
+    <input type="file" name="file1" id="file1"></br></br>
+	</div>
+		<button type="submit" name="submit">Upload</button></br></br>
+</form>
+</center>
+</body>
+</html>
+{% endblock %}
