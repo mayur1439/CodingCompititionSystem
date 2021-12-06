@@ -1,0 +1,129 @@
+/*
+* segment_tree datastructure
+* author: savaliya_vivek
+* question: codeforses(Nastya Hasn't Written a Legend)
+* question_link: https://codeforces.com/contest/1136/problem/E
+* solution_link:https://codeforces.com/contest/1136/submission/51229218
+*/
+
+#include<bits/stdc++.h>
+using namespace std;
+#define ll long long int
+#define F first
+#define S second
+#define PI pair<ll,ll>
+#define MAX 111111
+#define boost ios_base::sync_with_stdio(false);cin.tie(NULL)
+
+ll a[MAX],b[MAX],t[MAX],k[MAX],max_e[MAX],tree[MAX],range[MAX];
+void built(int x,int ss,int ee,ll arr[])
+{
+    //cout<<"built"<<endl;
+    //cout<<ss<<" "<<ee<<endl;
+    if(ss==ee)
+    {
+        tree[x]=arr[ss];
+        max_e[x]=arr[ss];
+        range[x]=1;
+    }
+    else
+    {
+      int mid=(ss+ee)/2;
+      built(2*x,ss,mid,a);
+      built(2*x+1,mid+1,ee,a);
+      tree[x]=tree[2*x]+tree[2*x+1];
+      max_e[x]=max(max_e[2*x],max_e[2*x+1]);
+      range[x]=ee-ss+1;
+    }
+    return;
+}
+
+void update(int node,int ss,int ee,int x,int pos,int val)
+{
+   // cout<<"update"<<endl;
+    //cout<<ss<<" "<<ee<<endl;
+    if(ss>pos || ee<x)
+        return;
+    if(ss==ee)
+    {
+        tree[node]+=val;
+        return;
+    }
+    int m=(ss+ee)>>1;
+    update(2*node,ss,m,x,pos,val);
+    update(2*node+1,m+1,ee,x,pos,val);
+    tree[node]=tree[2*node]+tree[2*node+1];
+    return;
+}
+
+ll query(int node,int ss,int ee,int l,int r)
+{
+    //cout<<"query"<<endl;
+    //cout<<ss<<" "<<ee<<endl;
+    if(ss>r || ee<l)
+        return 0;
+    if(l<=ss && ee<=r)
+        return tree[node];
+    int m=(ss+ee)>>1;
+    ll p1=query(2*node,ss,m,l,r);
+    ll p2=query(2*node+1,m+1,ee,l,r);
+    return (p1+p2);
+}
+
+int binary_search(ll b[],int n,int val)
+{
+    int l=1,r=n;
+    while(l<r)
+    {
+        int m=(l+r)<<1;
+        if(b[m]+val < b[m+1])
+            r=m-1;
+        else
+            l=m+1;
+    }
+    return l;
+}
+
+int main()
+{
+    #ifndef ONLINE_JUDGE
+        freopen("input.txt","r",stdin);
+        //freopen("output.txt","w",stdout);
+    #endif // ONLINE_JUDGE
+
+    ll n;
+    cin>>n;
+    for(int i=1;i<=n;i++)
+        cin>>a[i];
+    for(int i=1;i<n;i++)
+    {
+        cin>>k[i];
+        t[i+1]=t[i]+k[i];
+        b[i]=a[i]-t[i];
+    }
+
+    b[n]=a[n]-t[n];
+    built(1,1,n,b);
+
+    ll q;
+    cin>>q;
+    while(q--)
+    {
+        char c;
+        int x,val;
+        cin>>c>>x>>val;
+
+        for(int i=1;i<=n;i++)
+            cout<<tree[i]<<" ";
+        if(c=='+')
+        {
+            int pos=binary_search(b,n,val);
+            update(1,1,n,x,pos,val);
+        }
+        else
+        {
+             ll ans=query(1,1,n,x,val);
+             cout<<ans<<endl;
+        }
+    }
+}
